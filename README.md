@@ -13,7 +13,7 @@ docker pull ghcr.io/aliou/<image>:latest
 | Image | Description |
 |-------|-------------|
 | [hello-world](./images/hello-world/) | Dummy hello-world image |
-
+| [alpine-jq](./images/alpine-jq/) | Alpine-based image with jq installed |
 ## Tags
 
 - `latest` - Always points to the most recent release

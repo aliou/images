@@ -11,6 +11,17 @@
       ],
       "pull-request-title-pattern": "chore: release ${component} ${version}"
     }
+    "images/alpine-jq": {
+      "release-type": "simple",
+      "component": "alpine-jq",
+      "include-component-in-tag": true,
+      "tag-separator": "-",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        "version.txt"
+      ],
+      "pull-request-title-pattern": "chore: release ${component} ${version}"
+    }
   },
   "separate-pull-requests": true,
   "release-search-depth": 100,
