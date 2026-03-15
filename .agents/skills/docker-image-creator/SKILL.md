@@ -11,7 +11,7 @@ Creates the scaffold for a new Docker image in this repository.
 
 Each image lives in `images/<image-name>/` with these required files:
 
-- `Dockerfile` - The image definition with OCI labels
+- `Dockerfile` - The image definition with OCI labels (should use multi-arch compatible base images)
 - `test.sh` - Executable test script that validates the image
 - `CHANGELOG.md` - Release notes for the image
 - `version.txt` - Current version string
@@ -25,9 +25,9 @@ Each image lives in `images/<image-name>/` with these required files:
    - Exit 0 on success, non-zero on failure
    - Example: `docker run --rm "$1"`
 4. Create `CHANGELOG.md` with initial version section
-5. Create `version.txt` containing just the version (e.g., `0.0.1`)
+5. Create `version.txt` containing the initial version `0.0.1` (release-please will bump this to `0.1.0` on first release)
 6. Update `release-please-config.json` to add the new package entry
-7. Update `.release-please-manifest.json` with initial version
+7. Update `.release-please-manifest.json` with initial version `0.0.1`
 8. Update `README.md` to list the new image
 
 ## OCI Labels Required
@@ -56,3 +56,15 @@ The `test.sh` script:
 ## Registry Info
 
 Images are published to `ghcr.io/aliou/<image-name>` (not `ghcr.io/aliou/images/<image-name>`).
+
+## Version Convention
+
+Always set the initial version to `0.0.1` in both `version.txt` and `.release-please-manifest.json`.
+When the first release is created, release-please will automatically bump it to `0.1.0`.
+This follows semantic versioning conventions where the first public release is `0.1.0`.
+
+## Multi-Architecture Support
+
+Images are built for both `linux/amd64` and `linux/arm64` platforms.
+Use base images that support both architectures (e.g., `alpine:latest`, `debian:slim`).
+Avoid architecture-specific binaries or dependencies unless absolutely necessary.
