@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'images/**/Dockerfile'
+  push:
+    branches:
+      - main
+    paths:
+      - 'images/**/Dockerfile'
+
+permissions:
+  contents: read
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed Dockerfiles
+        id: changes
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+          fi
+          CHANGED_FILES=$(git diff --name-only $BASE_SHA ${{ github.sha }} | grep -E '^images/[^/]+/Dockerfile$' | tr '\n' ' ')
+          echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "Detected Dockerfiles: $CHANGED_FILES"
+
+      - name: Run Hadolint
+        if: steps.changes.outputs.files != ''
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ${{ steps.changes.outputs.files }}
+          recursive: false
+          failure-threshold: error

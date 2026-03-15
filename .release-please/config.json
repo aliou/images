@@ -1,0 +1,6 @@
+{
+  "packages": {},
+  "separate-pull-requests": true,
+  "release-search-depth": 100,
+  "commit-search-depth": 200
+}
