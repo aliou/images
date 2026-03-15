@@ -1,5 +1,17 @@
 {
-  "packages": {},
+  "packages": {
+    "images/hello-world": {
+      "release-type": "simple",
+      "component": "hello-world",
+      "include-component-in-tag": true,
+      "tag-separator": "-",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        "version.txt"
+      ],
+      "pull-request-title-pattern": "chore: release ${component} ${version}"
+    }
+  },
   "separate-pull-requests": true,
   "release-search-depth": 100,
   "commit-search-depth": 200
