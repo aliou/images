@@ -10,7 +10,7 @@
         "version.txt"
       ],
       "pull-request-title-pattern": "chore: release ${component} ${version}"
-    }
+    },
     "images/alpine-jq": {
       "release-type": "simple",
       "component": "alpine-jq",
